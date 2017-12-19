@@ -1,0 +1,17 @@
+package com.rules
+import org.droolsServer.model.BaseDataDomain;
+import org.droolsServer.model.VoteInfos;
+
+rule "vote"
+
+    agenda-group "vote-group"
+
+    when
+    	$voteDataDomain : BaseDataDomain()
+    	VoteInfos(a <= y/x && b >= y/x) from $voteDataDomain.inputData 
+    then
+    	modify($voteDataDomain){
+    		setOutputData(true);
+    	}
+    	System.out.println("can vote!-- : " + $voteDataDomain.getOutputData());
+    end
